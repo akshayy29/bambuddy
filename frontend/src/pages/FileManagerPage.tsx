@@ -82,14 +82,14 @@ type SortField = 'name' | 'date' | 'size' | 'type' | 'prints';
 type SortDirection = 'asc' | 'desc';
 type TFunction = (key: string, options?: Record<string, unknown>) => string;
 
-// The list sits inside an overflow-x-auto wrapper, so keep the filename and
-// tag tracks useful and let the grid overflow on narrower layouts. A bare
-// `1fr` filename track can otherwise collapse to 0px once the fixed columns
-// consume the available width (#3105).
+// Keep the filename useful when fixed columns consume the available width,
+// and give the header spacer and row checkbox one shared track so every later
+// column stays aligned. min-w-min lets each auth variant size itself to its
+// intrinsic grid width inside the overflow-x-auto wrapper (#3105).
 const fileListGridColumns = (authEnabled: boolean) => authEnabled
-  ? 'grid-cols-[auto_minmax(240px,1fr)_120px_100px_100px_100px_minmax(100px,200px)_220px]'
-  : 'grid-cols-[auto_minmax(240px,1fr)_100px_100px_100px_minmax(100px,200px)_220px]';
-const fileListGridMinWidth = 'min-w-[1120px]';
+  ? 'grid-cols-[24px_minmax(240px,1fr)_120px_100px_100px_100px_minmax(0,200px)_220px]'
+  : 'grid-cols-[24px_minmax(240px,1fr)_100px_100px_100px_minmax(0,200px)_220px]';
+const fileListGridMinWidth = 'min-w-min';
 
 // New Folder Modal
 interface NewFolderModalProps {

@@ -365,7 +365,6 @@ describe('FileManagerPage', () => {
       // Verify files are still displayed after toggling
       expect(screen.getByText('Benchy')).toBeInTheDocument();
     });
-
   });
 
   describe('search and filter', () => {
@@ -898,11 +897,11 @@ describe('FileManagerPage', () => {
       // existing overflow wrapper scrolls instead.
       const header = screen.getByTestId('file-list-grid-header');
       const rows = screen.getAllByTestId('file-list-grid-row');
-      expect(header).toHaveClass('min-w-[1120px]');
-      expect(header.className).toContain('grid-cols-[auto_minmax(240px,1fr)_120px');
+      expect(header).toHaveClass('min-w-min');
+      expect(header.className).toContain('grid-cols-[24px_minmax(240px,1fr)_120px');
       for (const row of rows) {
-        expect(row).toHaveClass('min-w-[1120px]');
-        expect(row.className).toContain('grid-cols-[auto_minmax(240px,1fr)_120px');
+        expect(row).toHaveClass('min-w-min');
+        expect(row.className).toContain('grid-cols-[24px_minmax(240px,1fr)_120px');
       }
     });
   });
