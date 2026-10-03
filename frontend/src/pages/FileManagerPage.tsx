@@ -280,10 +280,12 @@ function filterAndSortFiles(
 // Keep the filename useful when fixed columns consume the available width,
 // and give the header spacer and row checkbox one shared track so every later
 // column stays aligned. min-w-min lets each auth variant size itself to its
-// intrinsic grid width inside the overflow-x-auto wrapper (#3105).
+// intrinsic grid width inside the overflow-x-auto wrapper (#3105). Tags get a
+// floor too: with a 0 minimum they took the squeeze the filename used to take,
+// hitting 0px right where the wrapper starts scrolling.
 const fileListGridColumns = (authEnabled: boolean) => authEnabled
-  ? 'grid-cols-[24px_minmax(240px,1fr)_120px_100px_100px_100px_minmax(0,200px)_220px]'
-  : 'grid-cols-[24px_minmax(240px,1fr)_100px_100px_100px_minmax(0,200px)_220px]';
+  ? 'grid-cols-[24px_minmax(240px,1fr)_120px_100px_100px_100px_minmax(96px,200px)_220px]'
+  : 'grid-cols-[24px_minmax(240px,1fr)_100px_100px_100px_minmax(96px,200px)_220px]';
 const fileListGridMinWidth = 'min-w-min';
 
 // New Folder Modal
@@ -3762,9 +3764,9 @@ export function FileManagerPage() {
                     {/* Prints */}
                     <div className="text-sm text-bambu-gray">{file.print_count > 0 ? `${file.print_count}x` : '-'}</div>
                     {/* Tags (#1268) — clickable chips push into the active
-                        filter; minmax(0,200px) on the column lets the cell
-                        shrink/wrap on narrow viewports without pushing the
-                        Actions cell off-screen. */}
+                        filter; minmax(96px,200px) on the column lets the cell
+                        shrink/wrap on narrow viewports, and the 96px floor
+                        keeps chips readable once the wrapper scrolls (#3105). */}
                     <div className="min-w-0" {...stopRowActivation}>
                       {!file.tags || file.tags.length === 0 ? (
                         <span className="text-xs text-bambu-gray/50">-</span>
